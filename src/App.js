@@ -1,40 +1,45 @@
 import {Component} from "react";
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: {firstName: 'Vlad', lastName: 'Korobko'},
-            work: 'SolitySoft'
-        }
 
+        this.state = {
+            monsters: [
+                {
+                    name: 'Linda',
+                    id: '123dsfer'
+                },
+                {
+                    name: 'Frank',
+                    id: '123dsfbsfd'
+                },
+                {
+                    name: 'Jacky',
+                    id: '678fdvsdfv'
+                },
+                {
+                    name: 'Andrei',
+                    id: 'ajsdfkl23'
+                }
+            ]
+
+        }
     }
 
 
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <p>
-                        I am {this.state.name.firstName} {this.state.name.lastName}. I work at {this.state.work}!
-                    </p>
-                    <button onClick={() => {
-                        this.setState(
-                            () => {
-                                return {
-                                    name: {firstName: 'Roma', lastName: 'Korobko'},
-                                    work: 'Music studio'
-                                }
-                            }, () => {
-                                console.log(this.state)
-                            })
-                    }}>Change Name
-                    </button>
-                </header>
+                {this.state.monsters.map((monster) => {
+                    return (
+                    <div key={monster.id}>
+                        <h1>{monster.name}</h1>
+                    </div>
+                    )
+                })}
             </div>
         );
     }
