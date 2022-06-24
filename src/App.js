@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: {firstName:'Vlad', lastName: 'Korobko'},
+            name: {firstName: 'Vlad', lastName: 'Korobko'},
             work: 'SolitySoft'
         }
 
@@ -23,11 +23,17 @@ class App extends Component {
                         I am {this.state.name.firstName} {this.state.name.lastName}. I work at {this.state.work}!
                     </p>
                     <button onClick={() => {
-                        this.setState({
-                            name: {firstName:'Roma', lastName: 'Korobko'},
-                            work: 'Music studio'
-                        })
-                    }}>Change Name</button>
+                        this.setState(
+                            () => {
+                                return {
+                                    name: {firstName: 'Roma', lastName: 'Korobko'},
+                                    work: 'Music studio'
+                                }
+                            }, () => {
+                                console.log(this.state)
+                            })
+                    }}>Change Name
+                    </button>
                 </header>
             </div>
         );
