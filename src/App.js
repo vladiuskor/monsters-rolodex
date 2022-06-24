@@ -6,23 +6,10 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             name: 'Vlad'
         }
-        this.handleClick = this.handleClick.bind(this)
-    }
 
-    handleClick() {
-        if(this.state.name === 'Vlad') {
-            this.setState({
-                name: 'Alex'
-            })
-        } else {
-            this.setState({
-                name: 'Vlad'
-            })
-        }
     }
 
 
@@ -34,7 +21,11 @@ class App extends Component {
                     <p>
                         Hi, {this.state.name}!
                     </p>
-                    <button onClick={this.handleClick}>Change Name</button>
+                    <button onClick={() => {
+                        this.setState({
+                            name: 'Alex'
+                        })
+                    }}>Change Name</button>
                 </header>
             </div>
         );
