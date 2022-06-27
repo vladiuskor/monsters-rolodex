@@ -1,43 +1,38 @@
 import {Component} from "react";
 
 import './App.css';
+import {logDOM} from "@testing-library/react";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            monsters: [
-                {
-                    name: 'Linda',
-                    id: '123dsfer'
-                },
-                {
-                    name: 'Frank',
-                    id: '123dsfbsfd'
-                },
-                {
-                    name: 'Jacky',
-                    id: '678fdvsdfv'
-                },
-                {
-                    name: 'Andrei',
-                    id: 'ajsdfkl23'
-                }
-            ]
-
+            monsters: [],
         }
     }
 
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users =>
+                this.setState(() => {
+                        return {monsters: users}
+                    },
+                    () => {
+                        console.log(this.state)
+                    }))
+            .catch(err => console.log(err))
+    }
 
     render() {
         return (
             <div className="App">
                 {this.state.monsters.map((monster) => {
                     return (
-                    <div key={monster.id}>
-                        <h1>{monster.name}</h1>
-                    </div>
+                        <div key={monster.id}>
+                            <h1>{monster.name}</h1>
+                        </div>
                     )
                 })}
             </div>
