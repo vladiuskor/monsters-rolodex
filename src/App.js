@@ -27,10 +27,20 @@ class App extends Component {
             .catch(err => console.log(err))
     }
 
+    onSearchChange = (event) => {
+        const searchField = event.target.value.toLowerCase();
+        this.setState(() => {
+            return {searchField}
+        })
+    }
+
     render() {
         console.log('2) Render');
 
-        const filteredMonsters = this.state.monsters.filter(monster => monster.name.toLowerCase().includes(this.state.searchField));
+        const {monsters, searchField} = this.state;
+        const {onSearchChange} = this; // Interesting method destructuring!
+
+        const filteredMonsters = monsters.filter(monster => monster.name.toLowerCase().includes(searchField));
 
         return (
             <div className="App">
@@ -38,12 +48,7 @@ class App extends Component {
                     type="search"
                     className="search-box"
                     placeholder="search monsters"
-                    onChange={(event) => {
-                        const searchField = event.target.value.toLowerCase();
-                        this.setState(() => {
-                            return {searchField}
-                        })
-                    }}
+                    onChange={onSearchChange}
                 />
                 {filteredMonsters.map((monster) => {
                     return (
