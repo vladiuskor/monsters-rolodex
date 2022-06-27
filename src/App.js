@@ -1,7 +1,6 @@
 import {Component} from "react";
 
 import './App.css';
-import {logDOM} from "@testing-library/react";
 
 class App extends Component {
     constructor(props) {
@@ -9,10 +8,13 @@ class App extends Component {
 
         this.state = {
             monsters: [],
+            searchField: ''
         }
+        console.log('1) Constructor');
     }
 
     componentDidMount() {
+        console.log('3) ComponentDidMount');
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(users =>
@@ -26,9 +28,24 @@ class App extends Component {
     }
 
     render() {
+        console.log('2) Render');
+
+        const filteredMonsters = this.state.monsters.filter(monster => monster.name.toLowerCase().includes(this.state.searchField));
+
         return (
             <div className="App">
-                {this.state.monsters.map((monster) => {
+                <input
+                    type="search"
+                    className="search-box"
+                    placeholder="search monsters"
+                    onChange={(event) => {
+                        const searchField = event.target.value.toLowerCase();
+                        this.setState(() => {
+                            return {searchField}
+                        })
+                    }}
+                />
+                {filteredMonsters.map((monster) => {
                     return (
                         <div key={monster.id}>
                             <h1>{monster.name}</h1>
